@@ -4,27 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41613f26-21f5-4c62-b596-10ef184942e2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/aws.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/copy.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deployfn.sh" beforeDir="false" afterPath="$PROJECT_DIR$/deployfn.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/produce.py" beforeDir="false" afterPath="$PROJECT_DIR$/produce.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/pulsarfunction/sentiment/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/pulsarfunction/sentiment/Chat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/pulsarfunction/sentiment/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/pulsarfunction/sentiment/Result.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/pulsarfunction/sentiment/SentimentFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/pulsarfunction/sentiment/SentimentFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/pulsarfunction/sentiment/SentimentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/pulsarfunction/sentiment/SentimentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dev/pulsarfunction/sentiment/SentimentFunctionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dev/pulsarfunction/sentiment/SentimentFunctionTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="41613f26-21f5-4c62-b596-10ef184942e2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
