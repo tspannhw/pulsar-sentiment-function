@@ -105,8 +105,13 @@ public class SentimentFunction implements Function<byte[], Void> {
 
         try {
             if ( context != null && context.getTenant() != null  && chat.getSentiment() != null) {
+
+                String theEventKey = UUID.randomUUID().toString();
+                chat.setId(theEventKey);
+
+                System.out.println("Sending " + chat.toString() + " to " + outputTopic);
                 context.newOutputMessage(outputTopic, JSONSchema.of(Chat.class))
-                        .key(UUID.randomUUID().toString())
+                        .key(theEventKey)
                         .property("language", "Java")
                         .property("processor", "sentiment")
                         .value(chat)
