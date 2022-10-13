@@ -1,5 +1,6 @@
 package dev.pulsarfunction.sentiment;
 
+import ai.djl.repository.zoo.ModelZoo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,43 +23,43 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.StringJoiner;
+
 /**
  *
  */
 public class SentimentService {
     private static final Logger log = LoggerFactory.getLogger(SentimentService.class);
 
-    public Classifications predict(String input)
-            throws MalformedModelException, ModelNotFoundException, IOException,
-            TranslateException {
-        this.log.debug("input Sentence: {}", input);
+    private static Predictor<String, Classifications> predictor;
 
-        Criteria<String, Classifications> criteria =
-                Criteria.builder()
-                        .optApplication(Application.NLP.SENTIMENT_ANALYSIS)
-                        .setTypes(String.class, Classifications.class)
-                        .optDevice(Device.cpu())
-                        .optProgress(new ProgressBar())
-                        .build();
-
-        try (ZooModel<String, Classifications> model = criteria.loadModel();
-             Predictor<String, Classifications> predictor = model.newPredictor()) {
-            return predictor.predict(input);
+    private Predictor<String, Classifications> getOrCreatePredictor()
+            throws ModelException, IOException {
+        if (predictor == null) {
+            Criteria<String, Classifications> criteria =
+                    Criteria.builder()
+                            .optApplication(Application.NLP.SENTIMENT_ANALYSIS)
+                            .setTypes(String.class, Classifications.class)
+                            .optProgress(new ProgressBar())
+                            .build();
+            ZooModel<String, Classifications> model = criteria.loadModel();
+            predictor = model.newPredictor();
+        //.optDevice(Device.cpu())
         }
+        return predictor;
     }
-
     public Result getSentiment(String rawText) {
         Result result = new Result();
         Classifications classifications = null;
         try {
-            classifications = predict(rawText);
-        } catch (MalformedModelException e) {
-            log.error(e.getLocalizedMessage());
-        } catch (ModelNotFoundException e) {
-            log.error(e.getLocalizedMessage());
-        } catch (IOException e) {
-            log.error(e.getLocalizedMessage());
-        } catch (TranslateException e) {
+
+            Predictor<String, Classifications> predictor = null;
+            try {
+                predictor = getOrCreatePredictor();
+            } catch (ModelException e) {
+                throw new RuntimeException(e);
+            }
+            classifications = predictor.predict(rawText);
+        } catch (Throwable e) {
             log.error(e.getLocalizedMessage());
         }
         if ( classifications == null) {
