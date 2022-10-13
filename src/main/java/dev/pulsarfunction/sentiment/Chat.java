@@ -16,7 +16,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.StringJoiner;
 
 /**
- *
+ *  row['id'] = str(msg_id)
+ *         row['sentiment'] = str(sentimentVal)
+ *         row['userInfo'] = str(fields["userInfo"])
+ *         row['comment'] = str(fields["comment"])
+ *         row['contactInfo'] = str(fields["contactInfo"])
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Chat implements Serializable {
@@ -24,14 +28,43 @@ public class Chat implements Serializable {
     public String userInfo;
     public String contactInfo;
     public String comment;
-    public String prediction;
+    public String sentiment;
+    public String id;
 
-    public Chat(String userInfo, String contactInfo, String comment, String prediction) {
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Chat.class.getSimpleName() + "[", "]")
+                .add("userInfo='" + userInfo + "'")
+                .add("contactInfo='" + contactInfo + "'")
+                .add("comment='" + comment + "'")
+                .add("sentiment='" + sentiment + "'")
+                .add("id='" + id + "'")
+                .toString();
+    }
+
+    public Chat(String userInfo, String contactInfo, String comment, String sentiment, String id) {
         super();
         this.userInfo = userInfo;
         this.contactInfo = contactInfo;
         this.comment = comment;
-        this.prediction = prediction;
+        this.sentiment = sentiment;
+        this.id = id;
+    }
+
+    public String getSentiment() {
+        return sentiment;
+    }
+
+    public void setSentiment(String sentiment) {
+        this.sentiment = sentiment;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Chat() {
@@ -62,21 +95,5 @@ public class Chat implements Serializable {
         this.comment = comment;
     }
 
-    public String getPrediction() {
-        return prediction;
-    }
 
-    public void setPrediction(String prediction) {
-        this.prediction = prediction;
-    }
-
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", Chat.class.getSimpleName() + "[", "]")
-                .add("userInfo='" + userInfo + "'")
-                .add("contactInfo='" + contactInfo + "'")
-                .add("comment='" + comment + "'")
-                .add("prediction='" + prediction + "'")
-                .toString();
-    }
 }

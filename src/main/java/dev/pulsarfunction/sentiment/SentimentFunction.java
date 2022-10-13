@@ -17,7 +17,6 @@ public class SentimentFunction implements Function<byte[], Void> {
     /**
      * parse Chat JSON Message into Class
      *
-     * todo  Make a schema and find how to attach to websockets
      * @param message String of message
      * @return Chat Message
      */
@@ -77,30 +76,35 @@ public class SentimentFunction implements Function<byte[], Void> {
 
         Result result = null;
         Chat chat = parseMessage(new String(input));
+
+        System.out.println("Chat value=" + chat.toString());
+
         SentimentService sentimentService = new SentimentService();
 
         try {
             result = sentimentService.getSentiment(chat.getComment());
         } catch (Throwable e) {
-            e.printStackTrace();
             if ( context != null && context.getLogger() != null) {
-                context.getLogger().error("ERROR:" + e.getLocalizedMessage());
+                context.getLogger().error(e.getLocalizedMessage());
             }
         }
 
         if ( result != null ) {
             if ( context != null && context.getLogger() != null) {
-                context.getLogger().info("sentiment-" + result.getSentimentValue());
+                context.getLogger().debug("sentiment-" + result.getSentimentValue());
             }
 
-            chat.setPrediction( String.format( "%s", result.getSentimentValue()));
+            System.out.println("Result:" + result.toString());
+            chat.setSentiment( String.format( "%s", result.getSentimentValue()));
+
+            System.out.println("Prediction: " + chat.getSentiment());
         }
         else {
-            chat.setPrediction( "Neutral");
+            chat.setSentiment( "Neutral");
         }
 
         try {
-            if ( context != null && context.getTenant() != null  && chat.getPrediction() != null) {
+            if ( context != null && context.getTenant() != null  && chat.getSentiment() != null) {
                 context.newOutputMessage(outputTopic, JSONSchema.of(Chat.class))
                         .key(UUID.randomUUID().toString())
                         .property("language", "Java")

@@ -31,7 +31,7 @@ public class SentimentService {
     public Classifications predict(String input)
             throws MalformedModelException, ModelNotFoundException, IOException,
             TranslateException {
-        this.log.info("input Sentence: {}", input);
+        this.log.debug("input Sentence: {}", input);
 
         Criteria<String, Classifications> criteria =
                 Criteria.builder()
@@ -53,25 +53,25 @@ public class SentimentService {
         try {
             classifications = predict(rawText);
         } catch (MalformedModelException e) {
-            e.printStackTrace();
+            log.error(e.getLocalizedMessage());
         } catch (ModelNotFoundException e) {
-            e.printStackTrace();
+            log.error(e.getLocalizedMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getLocalizedMessage());
         } catch (TranslateException e) {
-            e.printStackTrace();
+            log.error(e.getLocalizedMessage());
         }
         if ( classifications == null) {
             result.setRawClassification("DJL.AI Sentiment Model has failed.");
             return result;
         }
-        this.log.info(classifications.toString());
+        this.log.debug(classifications.toString());
         result.setRawClassification(classifications.toString());
         Classifications.Classification classPositive = classifications.get("Positive");
         Classifications.Classification classNegative = classifications.get("Negative");
 
-        this.log.info("Pos: {} = {}",classPositive.getClassName(),classPositive.getProbability());
-        this.log.info("Neg: {} = {}",classNegative.getClassName(),classNegative.getProbability());
+        this.log.debug("Pos: {} = {}",classPositive.getClassName(),classPositive.getProbability());
+        this.log.debug("Neg: {} = {}",classNegative.getClassName(),classNegative.getProbability());
 
         result.setProbabilityNegative(classNegative.getProbability());
         result.setProbabilityNegativePercentage( classNegative.getProbability() * 100 );
@@ -81,16 +81,13 @@ public class SentimentService {
         String sentimentValue = "";
 
         if ( classPositive.getProbability() > classNegative.getProbability()) {
-            this.log.info("Sentiment is positive");
             sentimentValue = "Positive";
         }
         else if (classNegative.getProbability() > classPositive.getProbability())
         {
-            this.log.info("Sentiment is negative");
             sentimentValue = "Negative";
         }
         else {
-            this.log.info("Sentiment is neutral");
             sentimentValue = "Neutral";
         }
 
