@@ -49,7 +49,7 @@ public class SentimentFunction implements Function<byte[], Void> {
             return null;
         }
         // @TODO:  Fix.  maybe pass in
-        String outputTopic = "persistent://public/default/chatresult2"; // sentimentresults
+        String outputTopic = "persistent://public/default/sentimentresults"; //
 
         if (context != null && context.getLogger() != null && context.getLogger().isDebugEnabled()) {
             context.getLogger().debug("LOG:" + input.toString());
@@ -100,7 +100,7 @@ public class SentimentFunction implements Function<byte[], Void> {
         }
 
         try {
-            if ( context != null && context.getTenant() != null ) {
+            if ( context != null && context.getTenant() != null  && chat.getPrediction() != null) {
                 context.newOutputMessage(outputTopic, JSONSchema.of(Chat.class))
                         .key(UUID.randomUUID().toString())
                         .property("language", "Java")
