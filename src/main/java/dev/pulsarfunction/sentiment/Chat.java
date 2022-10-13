@@ -26,7 +26,6 @@ public class Chat implements Serializable {
     public String comment;
     public String prediction;
 
-
     public Chat(String userInfo, String contactInfo, String comment, String prediction) {
         super();
         this.userInfo = userInfo;

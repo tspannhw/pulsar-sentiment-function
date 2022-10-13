@@ -14,7 +14,6 @@ import java.util.UUID;
  */
 public class SentimentFunction implements Function<byte[], Void> {
 
-
     /**
      * parse Chat JSON Message into Class
      *
@@ -50,7 +49,7 @@ public class SentimentFunction implements Function<byte[], Void> {
             return null;
         }
         // @TODO:  Fix.  maybe pass in
-        String outputTopic = "persistent://public/default/sentimentresults";
+        String outputTopic = "persistent://public/default/chatresult2"; // sentimentresults
 
         if (context != null && context.getLogger() != null && context.getLogger().isDebugEnabled()) {
             context.getLogger().debug("LOG:" + input.toString());
@@ -78,38 +77,27 @@ public class SentimentFunction implements Function<byte[], Void> {
 
         Result result = null;
         Chat chat = parseMessage(new String(input));
+        SentimentService sentimentService = new SentimentService();
 
-//        try {
-//            result = predict(chat.getComment());
-//        } catch (Throwable e) {
-//            e.printStackTrace();
-//            if ( context != null && context.getLogger() != null) {
-//                context.getLogger().error("ERROR:" + e.getLocalizedMessage());
-//            }
-//        }
-
-        if ( result != null && result.getRawClassification() != null) {
-            String sentiment = "Neutral";
-            if (result.getProbability() > result.getProbabilityNegative()) {
-                sentiment = "Positive";
-            }
-            else if (result.getProbability() < result.getProbabilityNegative()) {
-                sentiment = "Negative";
-            }
-
+        try {
+            result = sentimentService.getSentiment(chat.getComment());
+        } catch (Throwable e) {
+            e.printStackTrace();
             if ( context != null && context.getLogger() != null) {
-                context.getLogger().info("sentiment-" + sentiment);
+                context.getLogger().error("ERROR:" + e.getLocalizedMessage());
+            }
+        }
+
+        if ( result != null ) {
+            if ( context != null && context.getLogger() != null) {
+                context.getLogger().info("sentiment-" + result.getSentimentValue());
             }
 
-            chat.setPrediction( String.format( "%s", sentiment));
+            chat.setPrediction( String.format( "%s", result.getSentimentValue()));
         }
         else {
             chat.setPrediction( "Neutral");
         }
-
-//        if (record.getEventTime().isPresent()) {
-//            context.recordMetric("MessageEventTime", record.getEventTime().get().doubleValue());
-//        }
 
         try {
             if ( context != null && context.getTenant() != null ) {
@@ -134,4 +122,4 @@ public class SentimentFunction implements Function<byte[], Void> {
 
         return null;
     }
-} 
+}

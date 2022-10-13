@@ -18,6 +18,18 @@ public class Result implements Serializable {
     private double probabilityNegative;
     private double probabilityNegativePercentage;
 
+    private String sentimentValue;
+
+
+
+    public String getSentimentValue() {
+        return sentimentValue;
+    }
+
+    public void setSentimentValue(String sentimentValue) {
+        this.sentimentValue = sentimentValue;
+    }
+
     private String rawClassification;
 
     public Result(double probability, double probabilityPercentage, double probabilityNegative, double probabilityNegativePercentage, String rawClassification) {
@@ -37,14 +49,25 @@ public class Result implements Serializable {
         this.rawClassification = rawClassification;
     }
 
+    public Result(double probability, double probabilityPercentage, double probabilityNegative, double probabilityNegativePercentage, String sentimentValue, String rawClassification) {
+        super();
+        this.probability = probability;
+        this.probabilityPercentage = probabilityPercentage;
+        this.probabilityNegative = probabilityNegative;
+        this.probabilityNegativePercentage = probabilityNegativePercentage;
+        this.sentimentValue = sentimentValue;
+        this.rawClassification = rawClassification;
+    }
+
     @Override
     public String toString() {
-        return new StringJoiner( ", ", Result.class.getSimpleName() + "[", "]" )
-                .add( "probability=" + probability )
-                .add( "probabilityPercentage=" + probabilityPercentage )
-                .add( "probabilityNegative=" + probabilityNegative )
-                .add( "probabilityNegativePercentage=" + probabilityNegativePercentage )
-                .add( "rawClassification='" + rawClassification + "'" )
+        return new StringJoiner(", ", Result.class.getSimpleName() + "[", "]")
+                .add("probability=" + probability)
+                .add("probabilityPercentage=" + probabilityPercentage)
+                .add("probabilityNegative=" + probabilityNegative)
+                .add("probabilityNegativePercentage=" + probabilityNegativePercentage)
+                .add("sentimentValue='" + sentimentValue + "'")
+                .add("rawClassification='" + rawClassification + "'")
                 .toString();
     }
 

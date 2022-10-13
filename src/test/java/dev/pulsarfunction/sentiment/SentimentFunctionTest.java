@@ -43,7 +43,7 @@ public class SentimentFunctionTest {
 
             FunctionConfig functionConfig = FunctionConfig.builder()
                     .className(SentimentFunction.class.getName())
-                    .inputs(Collections.singleton("persistent://public/default/chat"))
+                    .inputs(Collections.singleton("persistent://public/default/chat2"))
                     .name("sentimentFunction")
                     .tenant("public")
                     .namespace("default")
@@ -51,7 +51,6 @@ public class SentimentFunctionTest {
                     .cleanupSubscription(true)
                     .build();
 
-            // nvidia-desktop
             LocalRunner localRunner = LocalRunner.builder()
                     .brokerServiceUrl("pulsar://pulsar1:6650")
                     .functionConfig(functionConfig)
